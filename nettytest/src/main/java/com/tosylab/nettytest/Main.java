@@ -29,9 +29,9 @@ public class Main {
                     })
                     .childOption(ChannelOption.SO_KEEPALIVE, false);
 
-            System.out.println("bind 8889");
-            ChannelFuture f = b.bind(8889).sync();
-            f.channel().closeFuture().sync();  //没有这句话则不会在此阻塞等待客户端的连接，而是直接执行后面代码
+            System.out.println("bind 80");
+            ChannelFuture f = b.bind(80).sync();
+            f.channel().closeFuture().sync();
         }finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
