@@ -16,7 +16,7 @@ public class HelloWorldHttpHandler extends SimpleChannelInboundHandler<HttpObjec
 
         if (msg instanceof LastHttpContent) {
 //            System.out.println("get request");
-            ByteBuf content = Unpooled.copiedBuffer("Hello World.", CharsetUtil.UTF_8);
+            ByteBuf content = Unpooled.copiedBuffer("True", CharsetUtil.UTF_8);
             FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
             response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "text/plain");
             response.headers().set(HttpHeaders.Names.CONTENT_LENGTH, content.readableBytes());
