@@ -22,9 +22,12 @@ public class HelloWorldHttpHandler extends SimpleChannelInboundHandler<FullHttpR
 //                TelegramModel obj = JSONObject.parseObject(data.toString(),TelegramModel.class);
 //                if (null != obj && null != obj){
                     //send
-                    int chat_id = 672868707;
-                    String url = String.format("https://api.telegram.org/bot580249700:AAGSAE0bewvzOMd4vZMCy3TkjkXxPTSYxvk/sendMessage?text=%s&chat_id=%d", "hello",chat_id);
-                    Unirest.get(url).asJsonAsync();
+//                    int chat_id = 672868707;
+//                    String url = String.format("https://api.telegram.org/bot580249700:AAGSAE0bewvzOMd4vZMCy3TkjkXxPTSYxvk/sendMessage?text=%s&chat_id=%d", "hello",chat_id);
+//                    Unirest.get(url).asJsonAsync();
+//
+            Unirest.get("https://api.telegram.org/bot580249700:AAGSAE0bewvzOMd4vZMCy3TkjkXxPTSYxvk/sendMessage?text=hello&chat_id=672868707").asJson();
+
 //                }
 //            }
 
