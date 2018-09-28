@@ -8,14 +8,14 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 
-public class HelloWorldHttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
+public class HelloWorldHttpHandler extends SimpleChannelInboundHandler<HttpObject> {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         ctx.flush();
     }
 
-    protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
         if (msg instanceof LastHttpContent) {
 //            ByteBuf data = msg.content();
 //            if(null != data && data.readableBytes() > 0){
@@ -26,7 +26,7 @@ public class HelloWorldHttpHandler extends SimpleChannelInboundHandler<FullHttpR
 //                    String url = String.format("https://api.telegram.org/bot580249700:AAGSAE0bewvzOMd4vZMCy3TkjkXxPTSYxvk/sendMessage?text=%s&chat_id=%d", "hello",chat_id);
 //                    Unirest.get(url).asJsonAsync();
 //
-//            Unirest.get("https://api.telegram.org/bot580249700:AAGSAE0bewvzOMd4vZMCy3TkjkXxPTSYxvk/sendMessage?text=hello&chat_id=672868707").asJson();
+            Unirest.get("https://api.telegram.org/bot580249700:AAGSAE0bewvzOMd4vZMCy3TkjkXxPTSYxvk/sendMessage?text=hello&chat_id=672868707").asJson();
 
 //                }
 //            }
