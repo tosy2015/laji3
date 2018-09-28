@@ -29,8 +29,8 @@ public class Main {
                     })
                     .childOption(ChannelOption.SO_KEEPALIVE, false);
 
-            System.out.println("bind 80");
-            ChannelFuture f = b.bind(80).sync();
+            System.out.println("bind 10000");
+            ChannelFuture f = b.bind(10000).sync();
             f.channel().closeFuture().sync();
         }finally {
             bossGroup.shutdownGracefully();
