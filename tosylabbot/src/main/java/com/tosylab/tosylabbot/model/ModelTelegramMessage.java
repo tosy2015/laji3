@@ -10,6 +10,16 @@ public class ModelTelegramMessage {
     String text;
     List<ModelEntities> entities;
 
+    ModelTelegramMessage reply_to_message;
+
+    public ModelTelegramMessage getReply_to_message() {
+        return reply_to_message;
+    }
+
+    public void setReply_to_message(ModelTelegramMessage reply_to_message) {
+        this.reply_to_message = reply_to_message;
+    }
+
     public long getMessage_id() {
         return message_id;
     }
