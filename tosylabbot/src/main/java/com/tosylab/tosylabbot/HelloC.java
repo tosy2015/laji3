@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.tosylab.tosylabbot.baidu.BaiduTransApi;
+import com.tosylab.tosylabbot.baidu.ModelBaiduReturn;
 import com.tosylab.tosylabbot.model.ModelSendText;
 import com.tosylab.tosylabbot.model.ModelTelegramUpdate;
 import org.slf4j.Logger;
@@ -51,14 +53,19 @@ public class HelloC {
             sendMessage(builderPost.toString(),mainpage);
         }else{
 
-            String text = baiduTransApi.getTransResult(update.getMessage().getText(),"auto","zh");
-            logger.info("get trans ： " + text);
-
+            ModelBaiduReturn rt = baiduTransApi.getTransResult(update.getMessage().getText(),"auto","zh");
+            logger.info("get trans ： " + JSONObject.toJSONString(rt));
+            if(null == rt){
+                return "trans failed";
+            }
+            StringBuilder text = new StringBuilder();
+            for (ModelBaiduReturn.ModelBaiduData t : rt.getTrans_result()){
+                text.append(t.getDst()).append(" ");
+            }
             ModelSendText trans = new ModelSendText();
             trans.setChat_id(update.getMessage().getChat().getId());
 //            trans.setParse_mode("markdown");
-//            trans.setText("I don't understand... what's " + update.getMessage().getText());
-            trans.setText(text);
+            trans.setText(text.toString());
             sendMessage(builderPost.toString(),trans);
         }
         return "OK";
