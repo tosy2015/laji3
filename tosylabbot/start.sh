@@ -5,4 +5,4 @@ mvn clean
 mvn package
 #nohup java -server -XX:+UseG1GC -Xmx10m -Xms10m -jar /root/laji3/nettytest/target/nettytest-1.jar  >/dev/null 2>&1 &
 #nohup java -server -XX:+UseG1GC -Xmx10m -Xms10m -jar /root/laji3/nettytest/target/nettytest-1.jar  >/dev/null 2>log &
-nohup java -server -XX:+UseG1GC -Xmx20m -Xms20m -jar /root/laji3/tosylabbot/target/tosylabbot-1.0.jar >/dev/null 2>&1 &
+nohup java -server -XX:+UseG1GC -Xmx500m -Xms50m -jar /root/laji3/tosylabbot/target/tosylabbot-1.0.jar >/dev/null 2>&1 &
