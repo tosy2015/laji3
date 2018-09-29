@@ -42,7 +42,7 @@ public class HelloC {
         ModelSendText mainpage = new ModelSendText();
         mainpage.setChat_id(update.getMessage().getChat().getId());
         mainpage.setParse_mode("markdown");
-        mainpage.setText("[hello" + update.getMessage().getFrom().getUsername() + "! tosylab is here](https://www.tosylab.com)");
+        mainpage.setText("[hello " + update.getMessage().getFrom().getUsername() + "!\ntosylab is here](https://www.tosylab.com)");
         sendMessage(builderPost.toString(),mainpage);
 
         return "OK";
