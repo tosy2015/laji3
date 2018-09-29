@@ -2,8 +2,6 @@ package com.tosylab.tosylabbot;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
