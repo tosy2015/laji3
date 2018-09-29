@@ -27,7 +27,10 @@ public class BaiduTransApi {
             url.append(item.getKey()).append("=").append(item.getValue()).append("&");
 
         }
-        return JSONObject.parseObject(Unirest.get(url.toString()).asString().toString(),ModelBaiduReturn.class);
+        return JSONObject.parseObject(
+                Unirest.get(url.toString()).asString().getBody()
+                ,ModelBaiduReturn.class);
+
 //        return Unirest.post(baiduTransUrl)
 //                .header("Content-Type", "application/json")
 //                .body(JSONObject.toJSONString(params))
@@ -51,7 +54,7 @@ public class BaiduTransApi {
     }
 
     public static void main(String[] args) throws Exception {
-        new BaiduTransApi().getTransResult("hello","auto","zh");
-//        System.out.println("get " + rt);
+        ModelBaiduReturn rt = new BaiduTransApi().getTransResult("hello","auto","zh");
+        System.out.println("get " + JSONObject.toJSONString(rt));
     }
 }
