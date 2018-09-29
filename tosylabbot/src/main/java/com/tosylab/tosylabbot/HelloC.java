@@ -31,10 +31,10 @@ public class HelloC {
         String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         logger.info("get request ... " + body);
         ModelTelegramUpdate update = JSONObject.parseObject(body,ModelTelegramUpdate.class);
-        logger.info("get body ... " + JSONObject.toJSONString(update));
+//        logger.info("get body ... " + JSONObject.toJSONString(update));
 
         StringBuilder builder = new StringBuilder(telegramUrl).append(telegramToken).append("/sendMessage?chat_id=672868707&text=hello");
-        logger.info("send url = {}",builder.toString());
+//        logger.info("send url = {}",builder.toString());
         Unirest.get(builder.toString()).asJsonAsync();
 
 
@@ -42,6 +42,7 @@ public class HelloC {
         ModelSendText sendText = new ModelSendText();
         sendText.setChat_id(update.getMessage().getChat().getId());
         sendText.setText(getDefaultText());
+        logger.info("body " + JSONObject.toJSONString(sendText));
         Unirest.post(builderPost.toString()).body(JSONObject.toJSONString(sendText)).asJsonAsync();
         return "OK";
     }
