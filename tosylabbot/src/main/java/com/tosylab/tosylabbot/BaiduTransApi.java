@@ -1,34 +1,34 @@
 package com.tosylab.tosylabbot;
 
+import com.alibaba.fastjson.JSONObject;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.apache.http.client.methods.HttpGet;
+import netscape.javascript.JSObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class BaiduTransApi {
 
     @Value("${baidutrans.url}")
-    private String baiduTransUrl;
+    private String baiduTransUrl = "https://fanyi-api.baidu.com/api/trans/vip/translate";
     @Value("${baidutrans.appid}")
-    private String appid;
+    private String appid = "20180929000214029";
     @Value("${baidutrans.key}")
-    private String securityKey;
-
-    static private BaiduTransApi ins =new BaiduTransApi();
-    private BaiduTransApi(){}
-
-    static BaiduTransApi getIns(){
-        return ins;
-    }
+    private String securityKey = "tqo39C1Q7ZRb23Wz0GU8";
 
     public String getTransResult(String query, String from, String to) throws Exception {
         Map<String, String> params = buildParams(query, from, to);
-        return Unirest.post(baiduTransUrl).body(params).asString().getBody();
+        System.out.println("1 " + baiduTransUrl + " 2 " + JSONObject.toJSONString(params));
+        return Unirest.post(baiduTransUrl)
+                .body(JSONObject.toJSONString(params))
+                .asString()
+                .getBody();
     }
 
     private Map<String, String> buildParams(String query, String from, String to) throws NoSuchAlgorithmException {
@@ -45,5 +45,10 @@ public class BaiduTransApi {
 //        params.put("sign", MD5.md5(src));
         params.put("sign", MessageDigest.getInstance("MD5").digest(src.getBytes()).toString());
         return params;
+    }
+
+    public static void main(String[] args) throws Exception {
+        String rt = new BaiduTransApi().getTransResult("hello","auto","auto");
+        System.out.println("get " + rt);
     }
 }

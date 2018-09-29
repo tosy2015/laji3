@@ -8,6 +8,7 @@ import com.tosylab.tosylabbot.model.ModelSendText;
 import com.tosylab.tosylabbot.model.ModelTelegramUpdate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,8 @@ public class HelloC {
     private String telegramToken;
     @Value("${telegram.url}")
     private String telegramUrl;
+    @Autowired
+    BaiduTransApi baiduTransApi;
 
     @RequestMapping("/")
     public String index(HttpServletRequest req) throws Exception{
@@ -48,9 +51,9 @@ public class HelloC {
             sendMessage(builderPost.toString(),mainpage);
         }else{
 
-            String text = BaiduTransApi.getIns().getTransResult(update.getMessage().getText(),"auto","auto");
+            String text = baiduTransApi.getTransResult(update.getMessage().getText(),"auto","auto");
             logger.info("get trans ： " + text);
-            
+
             ModelSendText trans = new ModelSendText();
             trans.setChat_id(update.getMessage().getChat().getId());
 //            trans.setParse_mode("markdown");
