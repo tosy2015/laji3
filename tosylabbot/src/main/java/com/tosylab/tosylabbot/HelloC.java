@@ -25,7 +25,6 @@ public class HelloC {
     @Value("${telegram.url}")
     private String telegramUrl;
 
-
     @RequestMapping("/")
     public String index(HttpServletRequest req) throws Exception{
         String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
@@ -48,11 +47,16 @@ public class HelloC {
             mainpage.setText("hello " + update.getMessage().getFrom().getUsername() + "\n[tosyLab is here](https://www.tosylab.com)");
             sendMessage(builderPost.toString(),mainpage);
         }else{
-            ModelSendText notwork = new ModelSendText();
-            notwork.setChat_id(update.getMessage().getChat().getId());
-            notwork.setParse_mode("markdown");
-            notwork.setText("I don't understand... what's " + update.getMessage().getText());
-            sendMessage(builderPost.toString(),notwork);
+
+            String text = BaiduTransApi.getIns().getTransResult(update.getMessage().getText(),"auto","auto");
+            logger.info("get trans ： " + text);
+            
+            ModelSendText trans = new ModelSendText();
+            trans.setChat_id(update.getMessage().getChat().getId());
+//            trans.setParse_mode("markdown");
+//            trans.setText("I don't understand... what's " + update.getMessage().getText());
+            trans.setText(text);
+            sendMessage(builderPost.toString(),trans);
         }
         return "OK";
     }
