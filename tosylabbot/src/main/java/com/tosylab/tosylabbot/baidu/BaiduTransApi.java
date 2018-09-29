@@ -31,12 +31,6 @@ public class BaiduTransApi {
         return JSONObject.parseObject(
                 Unirest.get(url.toString()).asString().getBody()
                 ,ModelBaiduReturn.class);
-
-//        return Unirest.post(baiduTransUrl)
-//                .header("Content-Type", "application/json")
-//                .body(JSONObject.toJSONString(params))
-//                .asString()
-//                .getBody();
     }
 
     private Map<String, String> buildParams(String query, String from, String to) throws Exception {
