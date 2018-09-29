@@ -1,21 +1,36 @@
 package com.tosylab.nettytest;
 
+import com.mashape.unirest.http.Unirest;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
-import io.netty.util.concurrent.EventExecutorGroup;
 
 public class HelloWorldHttpHandler extends SimpleChannelInboundHandler<HttpObject> {
 
-    protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.flush();
+    }
 
+    protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
         if (msg instanceof LastHttpContent) {
-//            System.out.println("get request");
+//            ByteBuf data = msg.content();
+//            if(null != data && data.readableBytes() > 0){
+//                TelegramModel obj = JSONObject.parseObject(data.toString(),TelegramModel.class);
+//                if (null != obj && null != obj){
+                    //send
+//                    int chat_id = 672868707;
+//                    String url = String.format("https://api.telegram.org/bot580249700:AAGSAE0bewvzOMd4vZMCy3TkjkXxPTSYxvk/sendMessage?text=%s&chat_id=%d", "hello",chat_id);
+//                    Unirest.get(url).asJsonAsync();
+//
+            Unirest.get("https://api.telegram.org/bot580249700:AAGSAE0bewvzOMd4vZMCy3TkjkXxPTSYxvk/sendMessage?text=hello&chat_id=672868707").asJsonAsync();
+
+//                }
+//            }
+
             ByteBuf content = Unpooled.copiedBuffer("{\"Hello!\",\"HELLO!\"}", CharsetUtil.UTF_8);
             FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
             response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "text/plain");
@@ -23,9 +38,5 @@ public class HelloWorldHttpHandler extends SimpleChannelInboundHandler<HttpObjec
             ctx.writeAndFlush(response);
             ctx.close();
         }
-    }
-    @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.flush();
     }
 }
