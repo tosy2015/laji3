@@ -5,6 +5,7 @@ import com.mashape.unirest.http.Unirest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public class BaiduTransApi {
 
     private Map<String, String> buildParams(String query, String from, String to) throws Exception {
         Map<String, String> params = new HashMap<>();
-        params.put("q", query);
+        params.put("q", URLEncoder.encode(query));
         params.put("from", from);
         params.put("to", to);
         params.put("appid", appid);
@@ -54,7 +55,7 @@ public class BaiduTransApi {
     }
 
     public static void main(String[] args) throws Exception {
-        ModelBaiduReturn rt = new BaiduTransApi().getTransResult("hello","auto","zh");
+        ModelBaiduReturn rt = new BaiduTransApi().getTransResult("fuck you","auto","zh");
         System.out.println("get " + JSONObject.toJSONString(rt));
     }
 }
