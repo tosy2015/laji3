@@ -7,11 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class HelloC {
@@ -24,10 +26,10 @@ public class HelloC {
     private String telegramUrl;
 
 
-    @RequestMapping("/")
-    public String index(HttpServletRequest request) {
-        Map<String, String> map = getParameters(request);
-        logger.info("get request ... " + JSONObject.toJSONString(map));
+    @RequestMapping("/",method = RequestMethod.POST)
+    public String index(HttpServletRequest req) throws Exception{
+        String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        logger.info("get request ... " + body);
         StringBuilder builder = new StringBuilder(telegramUrl).append(telegramToken).append("/sendMessage?chat_id=672868707&text=hello");
         logger.info("send url = {}",builder.toString());
         Unirest.get(builder.toString()).asJsonAsync();
