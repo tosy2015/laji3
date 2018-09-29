@@ -26,10 +26,11 @@ public class HelloC {
     private String telegramUrl;
 
 
-    @RequestMapping("/",method = RequestMethod.POST)
+    @RequestMapping("/")
     public String index(HttpServletRequest req) throws Exception{
         String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         logger.info("get request ... " + body);
+
         StringBuilder builder = new StringBuilder(telegramUrl).append(telegramToken).append("/sendMessage?chat_id=672868707&text=hello");
         logger.info("send url = {}",builder.toString());
         Unirest.get(builder.toString()).asJsonAsync();
