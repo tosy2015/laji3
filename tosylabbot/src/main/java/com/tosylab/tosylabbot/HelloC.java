@@ -47,7 +47,8 @@ public class HelloC {
     }
 
     private String getDefaultText() {
-        return "[inline URL](https://www.tosylab.com)";
+        return "hello2";
+//        return "[inline URL](https://www.tosylab.com)";
     }
 
     private Map<String,String> getParameters(HttpServletRequest request) {
