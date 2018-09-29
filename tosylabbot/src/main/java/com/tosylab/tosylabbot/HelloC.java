@@ -51,7 +51,7 @@ public class HelloC {
             ModelSendText notwork = new ModelSendText();
             notwork.setChat_id(update.getMessage().getChat().getId());
             notwork.setParse_mode("markdown");
-            notwork.setText("this not work...");
+            notwork.setText("I don't understand... what's " + update.getMessage().getText());
             sendMessage(builderPost.toString(),notwork);
         }
         return "OK";
