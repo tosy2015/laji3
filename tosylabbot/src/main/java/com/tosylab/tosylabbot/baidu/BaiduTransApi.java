@@ -35,7 +35,7 @@ public class BaiduTransApi {
 
     private Map<String, String> buildParams(String query, String from, String to) throws Exception {
         Map<String, String> params = new HashMap<>();
-        params.put("q", URLEncoder.encode(query));
+        params.put("q", URLEncoder.encode(query,"utf-8"));
         params.put("from", from);
         params.put("to", to);
         params.put("appid", appid);
