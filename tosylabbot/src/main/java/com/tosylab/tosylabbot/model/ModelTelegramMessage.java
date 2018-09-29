@@ -1,4 +1,4 @@
-package com.tosylab.tosylabbot;
+package com.tosylab.tosylabbot.model;
 
 import java.util.List;
 

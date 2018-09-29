@@ -1,4 +1,4 @@
-package com.tosylab.tosylabbot;
+package com.tosylab.tosylabbot.model;
 
 public class ModelTelegramUpdate {
     long update_id;

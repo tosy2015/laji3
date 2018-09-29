@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.tosylab.tosylabbot.model.ModelSendText;
+import com.tosylab.tosylabbot.model.ModelTelegramUpdate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,12 +41,19 @@ public class HelloC {
         //post
         StringBuilder builderPost = new StringBuilder(telegramUrl).append(telegramToken).append("/sendMessage");
 
-        ModelSendText mainpage = new ModelSendText();
-        mainpage.setChat_id(update.getMessage().getChat().getId());
-        mainpage.setParse_mode("markdown");
-        mainpage.setText("hello " + update.getMessage().getFrom().getUsername() + "\n[tosyLab is here](https://www.tosylab.com)");
-        sendMessage(builderPost.toString(),mainpage);
-
+        if("/hello".equalsIgnoreCase(update.getMessage().getText())){
+            ModelSendText mainpage = new ModelSendText();
+            mainpage.setChat_id(update.getMessage().getChat().getId());
+            mainpage.setParse_mode("markdown");
+            mainpage.setText("hello " + update.getMessage().getFrom().getUsername() + "\n[tosyLab is here](https://www.tosylab.com)");
+            sendMessage(builderPost.toString(),mainpage);
+        }else{
+            ModelSendText notwork = new ModelSendText();
+            notwork.setChat_id(update.getMessage().getChat().getId());
+            notwork.setParse_mode("markdown");
+            notwork.setText("this not work...");
+            sendMessage(builderPost.toString(),notwork);
+        }
         return "OK";
     }
 
