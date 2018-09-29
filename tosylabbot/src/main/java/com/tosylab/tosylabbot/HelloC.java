@@ -38,21 +38,20 @@ public class HelloC {
 
         //post
         StringBuilder builderPost = new StringBuilder(telegramUrl).append(telegramToken).append("/sendMessage");
-        ModelSendText hello = new ModelSendText();
-        hello.setChat_id(update.getMessage().getChat().getId());
-        hello.setText("hello " + update.getMessage().getFrom().getUsername());
-
-        logger.info("body " + JSONObject.toJSONString(hello));
-        Unirest.post(builderPost.toString())
-                .header("Content-Type", "application/json")
-                .body(JSONObject.toJSONString(hello)).asJsonAsync();
 
         ModelSendText mainpage = new ModelSendText();
         mainpage.setChat_id(update.getMessage().getChat().getId());
         mainpage.setParse_mode("markdown");
-        mainpage.setText("[inline URL](https://www.tosylab.com)");
+        mainpage.setText("[hello" + update.getMessage().getFrom().getUsername() + "! tosylab is here](https://www.tosylab.com)");
+        sendMessage(builderPost.toString(),mainpage);
 
         return "OK";
+    }
+
+    private void sendMessage(String s, ModelSendText mainpage) {
+        Unirest.post(s)
+                .header("Content-Type", "application/json")
+                .body(JSONObject.toJSONString(mainpage)).asJsonAsync();
     }
 
 
@@ -60,12 +59,23 @@ public class HelloC {
 
         StringBuilder builderPost = new StringBuilder("https://api.telegram.org/bot")
                 .append("580249700:AAGSAE0bewvzOMd4vZMCy3TkjkXxPTSYxvk").append("/sendMessage");
-        ModelSendText sendText = new ModelSendText();
-        sendText.setChat_id(672868707);
-        sendText.setText("hi");
+
+//        ModelSendText sendText = new ModelSendText();
+//        sendText.setChat_id(672868707);
+//        sendText.setText("hi");
+//        HttpResponse<String> rt = Unirest.post(builderPost.toString())
+//                .header("Content-Type", "application/json")
+//                .body(JSONObject.toJSONString(sendText)).asString();
+
+        ModelSendText mainpage = new ModelSendText();
+        mainpage.setChat_id(672868707);
+        mainpage.setParse_mode("markdown");
+        mainpage.setText("[inline URL](https://www.tosylab.com)");
         HttpResponse<String> rt = Unirest.post(builderPost.toString())
                 .header("Content-Type", "application/json")
-                .body(JSONObject.toJSONString(sendText)).asString();
+                .body(JSONObject.toJSONString(mainpage)).asString();
+
+
         System.out.println("x" + JSONObject.toJSONString(rt));
     }
 }
