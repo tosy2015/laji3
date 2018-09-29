@@ -23,7 +23,7 @@ public class BaiduTransApi {
     public String getTransResult(String query, String from, String to) throws Exception {
         Map<String, String> params = buildParams(query, from, to);
         System.out.println("1 " + baiduTransUrl + " 2 " + JSONObject.toJSONString(params));
-        return Unirest.post(baiduTransUrl)
+        return Unirest.post(baiduTransUrl).header("Content-Type", "application/json")
                 .body(JSONObject.toJSONString(params))
                 .asString()
                 .getBody();
@@ -41,12 +41,12 @@ public class BaiduTransApi {
         // 签名
         String src = appid + query + salt + securityKey; // 加密前的原文
 //        params.put("sign", MD5.md5(src));
-        params.put("sign", MessageDigest.getInstance("MD5").digest(src.getBytes()).toString());
+        params.put("sign", MessageDigest.getInstance("MD5").digest(src.getBytes()).toString().toLowerCase());
         return params;
     }
 
     public static void main(String[] args) throws Exception {
-        String rt = new BaiduTransApi().getTransResult("hello","auto","auto");
+        String rt = new BaiduTransApi().getTransResult("hello","auto","zh");
         System.out.println("get " + rt);
     }
 }

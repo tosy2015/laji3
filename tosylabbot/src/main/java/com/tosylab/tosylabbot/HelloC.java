@@ -51,7 +51,7 @@ public class HelloC {
             sendMessage(builderPost.toString(),mainpage);
         }else{
 
-            String text = baiduTransApi.getTransResult(update.getMessage().getText(),"auto","auto");
+            String text = baiduTransApi.getTransResult(update.getMessage().getText(),"auto","zh");
             logger.info("get trans ： " + text);
 
             ModelSendText trans = new ModelSendText();
